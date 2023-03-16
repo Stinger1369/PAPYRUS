@@ -1,3 +1,14 @@
+Instructions pour essayer la base de données sur votre page web :
+
+1-Copiez le dossier contenant les fichiers PHP dans le répertoire "HTTdocs" de XAMPP. Si vous n'avez pas XAMPP, vous pouvez le télécharger à partir de ce lien : https://www.ionos.fr/digitalguide/serveur/outils/tutoriel-xampp-creer-un-serveur-de-test-local/
+
+2-Exportez la base de données "papyrus" en utilisant PHPMyAdmin. Si vous ne savez pas comment faire, suivez les instructions de ce lien : https://www.nuagerie.com/knowledgebase/408/Comment-importerorexporter-une-base-de-donnees-de-MySQL-avec-phpMyAdmin.html?language=French
+
+3-Insérez le lien suivant dans votre navigateur préféré : http://localhost/papyrus/mysql.php. Assurez-vous que XAMPP est en cours d'exécution avant de lancer ce lien.
+
+Bonne exploration de la base de données Papyrus !
+
+
 # 1 III.1 PHASE 1
 ### Quel est l’ordre à adopter ? Argumenter.
 
