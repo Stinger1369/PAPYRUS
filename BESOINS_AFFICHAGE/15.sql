@@ -1,0 +1,9 @@
+--Editer la liste des fournisseurs susceptibles de livrer les produits dont le stock est inférieur ou égal à 150 % du stock d'alerte. La liste est triée par produit puisfournisseur
+
+SELECT FOURNIS.NOMFOU, PRODUIT.CODART, PRODUIT.LIBART
+FROM PRODUIT
+JOIN LIGCOM ON PRODUIT.CODART = LIGCOM.CODART
+JOIN ENTCOM ON LIGCOM.NUMCOM = ENTCOM.NUMCOM
+JOIN FOURNIS ON ENTCOM.NUMFOU = FOURNIS.NUMFOU
+WHERE PRODUIT.STKPHY <= 1.5 * PRODUIT.STKLE
+ORDER BY PRODUIT.CODART, FOURNIS.NOMFOU;
