@@ -1,4 +1,7 @@
 
+
+--creation de la base de donnees papyrus 
+--creation de la table produit
 CREATE TABLE IF NOT EXISTS PRODUIT (
   CODART CHAR(4) PRIMARY KEY,
   LIBART VARCHAR(25) NOT NULL,
@@ -8,6 +11,7 @@ CREATE TABLE IF NOT EXISTS PRODUIT (
   UNIMES CHAR(5) NOT NULL
 );
 
+--insertion des donnees dans la table produit
 INSERT IGNORE INTO PRODUIT (CODART, LIBART, STKLE, STKPHY, QTEANN, UNIMES) VALUES
 ('B001', 'Bande magnétique 1200', 20, 87, 240, 'unité'),
 ('B002', 'Bande magnétique 6250', 20, 12, 410, 'unité'),
@@ -27,6 +31,10 @@ INSERT IGNORE INTO PRODUIT (CODART, LIBART, STKLE, STKPHY, QTEANN, UNIMES) VALUE
 
 UPDATE PRODUIT
 SET LIBART = REPLACE(LIBART, 'Pré-imprimé', 'Pre-imprime');
+
+UPDATE PRODUIT
+SET LIBART = 'Bande magnetique 6250'
+WHERE CODART = 'B001';
 
 UPDATE PRODUIT
 SET LIBART = 'Bande magnetique 6250'
@@ -54,7 +62,7 @@ WHERE CODART = 'P270';
 
 
 
-
+--creation de la table fournisseur
 
 CREATE TABLE IF NOT EXISTS FOURNIS (
   NUMFOU DECIMAL(10,0) PRIMARY KEY,
@@ -66,6 +74,8 @@ CREATE TABLE IF NOT EXISTS FOURNIS (
   SATISF DECIMAL(3,0)
 );
 
+--insertion des donnees dans la table fournisseur
+
 INSERT IGNORE INTO `FOURNIS` (`NUMFOU`, `NOMFOU`, `RUEFOU`, `POSFOU`, `VILFOU`, `CONFOU`, `SATISF`) VALUES
 (120, 'GROBRIGAN', '20 rue du papier', '92200', 'papercity', 'Georges', 8),
 (540, 'ECLIPSE', '53, rue laisse flotter les rub', '78250', 'Bugbugville', 'Nestor', 7),
@@ -76,7 +86,7 @@ INSERT IGNORE INTO `FOURNIS` (`NUMFOU`, `NOMFOU`, `RUEFOU`, `POSFOU`, `VILFOU`, 
 
 
 
-
+--creation de la table commande
 
 CREATE TABLE IF NOT EXISTS ENTCOM (
   NUMCOM INT(6) AUTO_INCREMENT PRIMARY KEY,
@@ -85,6 +95,8 @@ CREATE TABLE IF NOT EXISTS ENTCOM (
   NUMFOU DECIMAL(10,0),
   FOREIGN KEY (NUMFOU) REFERENCES FOURNIS(NUMFOU)
 );
+
+--insertion des donnees dans la table commande
 
 INSERT INTO `entcom` (`NUMCOM`, `OBSCOM`, `DATCOM`, `NUMFOU`) VALUES
 (70010, NULL, '2007-02-10', 120),
@@ -100,7 +112,7 @@ INSERT INTO `entcom` (`NUMCOM`, `OBSCOM`, `DATCOM`, `NUMFOU`) VALUES
 
 
 
-
+--creation de la table ligne de commande
 
 CREATE TABLE IF NOT EXISTS LIGCOM (
   NUMCOM INT(6) NOT NULL,
@@ -114,6 +126,8 @@ CREATE TABLE IF NOT EXISTS LIGCOM (
   FOREIGN KEY (NUMCOM) REFERENCES ENTCOM(NUMCOM),
   FOREIGN KEY (CODART) REFERENCES PRODUIT(CODART)
 );
+
+--insertion des donnees dans la table ligne de commande
 
 INSERT IGNORE INTO `ligcom` (`NUMCOM`, `NUMLIG`, `CODART`, `QTECDE`, `PRIUNI`, `QTELIV`, `DERLIV`) VALUES
 (70010, 1, 'I100', 3000, '470.00', 3000, '2007-03-15'),
@@ -138,7 +152,7 @@ INSERT IGNORE INTO `ligcom` (`NUMCOM`, `NUMLIG`, `CODART`, `QTECDE`, `PRIUNI`, `
 (70629, 1, 'B001', 200, '140.00', NULL, '2007-12-31'),
 (70629, 2, 'B002', 200, '140.00', NULL, '2007-12-31');
 
-
+--creation de la table vente
 
 CREATE TABLE IF NOT EXISTS VENTE (
   CODART CHAR(4) NOT NULL,
@@ -154,6 +168,8 @@ CREATE TABLE IF NOT EXISTS VENTE (
   FOREIGN KEY (CODART) REFERENCES PRODUIT(CODART),
   FOREIGN KEY (NUMFOU) REFERENCES FOURNIS(NUMFOU)
 );
+
+--insertion des donnees dans la table vente
 
 INSERT IGNORE INTO `vente` (`CODART`, `NUMFOU`, `DELLIV`, `QTE1`, `PRIX1`, `QTE2`, `PRIX2`, `QTE3`, `PRIX3`) VALUES
 ('B001', 8700, 15, 0, '150.00', 50, '145.00', 100, '140.00'),
@@ -186,3 +202,5 @@ INSERT IGNORE INTO `vente` (`CODART`, `NUMFOU`, `DELLIV`, `QTE1`, `PRIX1`, `QTE2
 
 
 
+-- ALTER TABLE VENTE
+-- MODIFY CODART CHAR(6) NOT NULL;
